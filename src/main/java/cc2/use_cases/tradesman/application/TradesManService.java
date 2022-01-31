@@ -3,9 +3,9 @@ package cc2.use_cases.tradesman.application;
 import cc2.use_cases.tradesman.domain.TradesMan;
 import cc2.use_cases.tradesman.domain.TradesManId;
 import cc2.use_cases.tradesman.domain.TradesManRepository;
-import cc2.use_cases.tradesman.domain.events.AddedTradesManEvent;
-import cc2.use_cases.tradesman.domain.events.Event;
-import cc2.use_cases.tradesman.domain.events.EventBus;
+import cc2.use_cases.tradesman.application.events.AddedTradesManEvent;
+import cc2.kernel.Event;
+import cc2.kernel.EventBus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

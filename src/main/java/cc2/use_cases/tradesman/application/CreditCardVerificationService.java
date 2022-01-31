@@ -1,11 +1,11 @@
 package cc2.use_cases.tradesman.application;
 
-import cc2.use_cases.tradesman.domain.events.VerificationCreditCardEvent;
+import cc2.use_cases.tradesman.application.events.VerificationCreditCardEvent;
 import cc2.use_cases.tradesman.domain.exception.CreditCardException;
 import cc2.use_cases.tradesman.domain.CreditCard;
 import cc2.use_cases.tradesman.domain.TradesMan;
-import cc2.use_cases.tradesman.domain.events.Event;
-import cc2.use_cases.tradesman.domain.events.EventBus;
+import cc2.kernel.Event;
+import cc2.kernel.EventBus;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

@@ -1,9 +1,9 @@
 package cc2.use_cases.tradesman.application;
 
-import cc2.use_cases.tradesman.domain.events.AddedTradesManEvent;
+import cc2.use_cases.tradesman.application.events.AddedTradesManEvent;
 import cc2.use_cases.tradesman.domain.TradesMan;
-import cc2.use_cases.tradesman.domain.events.Event;
-import cc2.use_cases.tradesman.domain.events.EventBus;
+import cc2.kernel.Event;
+import cc2.kernel.EventBus;
 
 public class AddedService {
     private final EventBus<Event> eventBus;

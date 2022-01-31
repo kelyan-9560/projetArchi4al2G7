@@ -1,9 +1,9 @@
 package cc2;
 
 import cc2.use_cases.tradesman.domain.*;
-import cc2.use_cases.tradesman.domain.events.AddedTradesManEvent;
-import cc2.use_cases.tradesman.domain.events.DefaultEventBus;
-import cc2.use_cases.tradesman.domain.events.AddedUserEventSubscription;
+import cc2.use_cases.tradesman.application.events.AddedTradesManEvent;
+import cc2.use_cases.tradesman.application.events.DefaultEventBus;
+import cc2.use_cases.tradesman.application.events.AddedUserEventSubscription;
 import cc2.use_cases.tradesman.domain.Payment;
 import cc2.use_cases.tradesman.domain.SendMailToUser;
 import cc2.use_cases.tradesman.application.AddedService;

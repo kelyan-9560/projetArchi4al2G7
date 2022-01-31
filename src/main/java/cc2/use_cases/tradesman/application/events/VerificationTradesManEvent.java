@@ -1,4 +1,4 @@
-package cc2.use_cases.tradesman.domain.events;
+package cc2.use_cases.tradesman.application.events;
 
 import cc2.use_cases.tradesman.domain.TradesMan;
 

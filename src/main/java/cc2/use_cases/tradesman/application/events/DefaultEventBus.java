@@ -1,5 +1,8 @@
-package cc2.use_cases.tradesman.domain.events;
+package cc2.use_cases.tradesman.application.events;
 
+import cc2.kernel.Event;
+import cc2.kernel.EventBus;
+import cc2.kernel.Subscriber;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

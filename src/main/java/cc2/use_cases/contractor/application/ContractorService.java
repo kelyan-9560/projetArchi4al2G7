@@ -5,8 +5,8 @@ import cc2.use_cases.contractor.domain.ContractorId;
 import cc2.use_cases.contractor.domain.ContractorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import cc2.use_cases.tradesman.domain.events.Event;
-import cc2.use_cases.tradesman.domain.events.EventBus;
+import cc2.kernel.Event;
+import cc2.kernel.EventBus;
 
 import java.util.List;
 

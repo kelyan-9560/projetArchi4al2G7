@@ -17,3 +17,17 @@
 
 
 - les tests
+
+
+
+
+
+
+
+
+Question :
+
+
+
+package event, execption
+password utilisé à plusieurs endroit (où le ranger ??)

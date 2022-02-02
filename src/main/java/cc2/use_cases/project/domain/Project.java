@@ -1,7 +1,8 @@
 package cc2.use_cases.project.domain;
 
-import cc2.use_cases.contractor.domain.Contractor;
+import cc2.use_cases.contractor.domain.ContractorId;
 import cc2.use_cases.task.domain.Task;
+import cc2.use_cases.tradesman.domain.Diploma;
 import cc2.use_cases.tradesman.domain.Location;
 import cc2.use_cases.tradesman.domain.TradesMan;
 
@@ -19,10 +20,11 @@ public final class Project {
     private final Integer duration;
     private final List<Task> tasks;
     private final List<TradesMan> tradesManList;
-    private final Contractor contractor;
+    private final ContractorId contractorId;
+
 
     public Project(ProjectId projectId, String name, List<String> jobs, List<String> skills, Location location,
-                   Double dailyTax, Integer duration, List<Task> tasks, List<TradesMan> tradesManList, Contractor contractor) {
+                   Double dailyTax, Integer duration, List<Task> tasks, List<TradesMan> tradesManList, ContractorId contractorId) {
         this.projectId = Objects.requireNonNull(projectId);
         this.name = Objects.requireNonNull(name);
         this.jobs = Objects.requireNonNull(jobs);
@@ -32,29 +34,12 @@ public final class Project {
         this.duration = Objects.requireNonNull(duration);
         this.tasks = Objects.requireNonNull(tasks);
         this.tradesManList = Objects.requireNonNull(tradesManList);
-        this.contractor = Objects.requireNonNull(contractor);
+        this.contractorId = Objects.requireNonNull(contractorId);
     }
 
     public static Project of(ProjectId projectId, String name, List<String> jobs, List<String> skills, Location location,
-                             Double dailyTax, Integer duration, List<Task> tasks, List<TradesMan> tradesManList, Contractor contractor){
-        return new Project(projectId, name, jobs, skills, location, dailyTax, duration, tasks, tradesManList, contractor);
-    }
-
-
-    @Override
-    public String toString() {
-        return "Project{" +
-                "projectId=" + projectId +
-                ", name='" + name + '\'' +
-                ", jobs=" + jobs +
-                ", skills=" + skills +
-                ", location=" + location +
-                ", dailyTax=" + dailyTax +
-                ", duration=" + duration +
-                ", tasks=" + tasks +
-                ", tradesManList=" + tradesManList +
-                ", contractor=" + contractor +
-                '}';
+                             Double dailyTax, Integer duration, List<Task> tasks,List<TradesMan> tradesManList, ContractorId contractorId){
+        return new Project(projectId, name, jobs, skills, location, dailyTax, duration, tasks, tradesManList, contractorId);
     }
 
     @Override
@@ -62,12 +47,12 @@ public final class Project {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Project project = (Project) o;
-        return Objects.equals(projectId, project.projectId) && Objects.equals(name, project.name) && Objects.equals(jobs, project.jobs) && Objects.equals(skills, project.skills) && Objects.equals(location, project.location) && Objects.equals(dailyTax, project.dailyTax) && Objects.equals(duration, project.duration) && Objects.equals(tasks, project.tasks) && Objects.equals(tradesManList, project.tradesManList) && Objects.equals(contractor, project.contractor);
+        return Objects.equals(projectId, project.projectId) && Objects.equals(name, project.name) && Objects.equals(jobs, project.jobs) && Objects.equals(skills, project.skills) && Objects.equals(location, project.location) && Objects.equals(dailyTax, project.dailyTax) && Objects.equals(duration, project.duration) && Objects.equals(tasks, project.tasks) && Objects.equals(tradesManList, project.tradesManList) && Objects.equals(contractorId, project.contractorId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(projectId, name, jobs, skills, location, dailyTax, duration, tasks, tradesManList, contractor);
+        return Objects.hash(projectId, name, jobs, skills, location, dailyTax, duration, tasks, tradesManList, contractorId);
     }
 
     public ProjectId getProjectId() {
@@ -106,7 +91,11 @@ public final class Project {
         return tradesManList;
     }
 
-    public Contractor getContractor() {
-        return contractor;
+    public ContractorId getContractor() {
+        return contractorId;
+    }
+
+    public ContractorId getContractorId() {
+        return contractorId;
     }
 }

@@ -1,6 +1,8 @@
 package cc2.use_cases.task.domain;
 
+
 import java.util.Objects;
+import java.util.UUID;
 
 public final class TaskId {
 
@@ -12,6 +14,10 @@ public final class TaskId {
 
     public static TaskId of(String id) {
         return new TaskId(id);
+    }
+
+    public static TaskId fromUUID(UUID uuid) {
+        return new TaskId(uuid.toString());
     }
 
     @Override

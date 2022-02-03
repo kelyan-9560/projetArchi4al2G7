@@ -1,6 +1,6 @@
 package cc2.use_cases.project.application;
 
-import cc2.use_cases.contractor.domain.Contractor;
+import cc2.use_cases.contractor.domain.ContractorId;
 import cc2.use_cases.task.domain.Task;
 import cc2.use_cases.tradesman.domain.Location;
 import cc2.use_cases.tradesman.domain.TradesMan;
@@ -17,11 +17,11 @@ public class ProjectDTO {
     public Integer duration;
     public List<Task> tasks;
     public List<TradesMan> tradesManList;
-    public Contractor contractor;
+    public ContractorId contractorId;
 
 
     public ProjectDTO(String name, List<String> jobs, List<String> skills, Location location,
-                      Double dailyTax, Integer duration, List<Task> tasks, List<TradesMan> tradesManList, Contractor contractor) {
+                      Double dailyTax, Integer duration, List<Task> tasks, List<TradesMan> tradesManList, ContractorId contractorId) {
         this.name = name;
         this.jobs = jobs;
         this.skills = skills;
@@ -30,6 +30,6 @@ public class ProjectDTO {
         this.duration = duration;
         this.tasks = tasks;
         this.tradesManList = tradesManList;
-        this.contractor = contractor;
+        this.contractorId = contractorId;
     }
 }

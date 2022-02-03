@@ -12,6 +12,8 @@ import cc2.use_cases.tradesman.application.TradesManVerificationService;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 
 public class Main {
@@ -32,8 +34,14 @@ public class Main {
         CreditCard creditCard = CreditCard.of("458729053978354612", "BERVIN", LocalDateTime.of(2070, 12, 15,0,0,0));
         Location location = Location.of("ile de france", "Paris");
         TradesManId tradesManId = TradesManId.of("1");
+        List<String> skills = List.of("Java", "TS");
+
+        DiplomaId diplomaId2 = DiplomaId.of("1");
+        Diploma master = new Diploma(diplomaId2, "master", new Date());
+        List<Diploma> diplomas = List.of(master);
+
         TradesMan tradesMan = TradesMan.of(tradesManId,"Kélyan ", "BERVIN", email,
-                creditCard, "Macon", "maçon", 2.3, location, "Bac");
+                creditCard, "Macon", skills, 2.3, location, diplomas);
 
         creditCardVerificationService.creditCardVerification(creditCard, tradesMan);
 

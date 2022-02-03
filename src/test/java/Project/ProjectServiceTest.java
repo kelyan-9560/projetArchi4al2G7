@@ -1,7 +1,6 @@
 package Project;
 
 import cc2.use_cases.contractor.application.ContractorService;
-import cc2.use_cases.contractor.domain.Contractor;
 import cc2.use_cases.contractor.domain.ContractorId;
 import cc2.use_cases.contractor.domain.ContractorRepository;
 import cc2.use_cases.contractor.infrastructure.InMemoryContractorRepository;
@@ -20,6 +19,7 @@ import cc2.use_cases.tradesman.infrastructure.InMemoryTradesManRepository;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,43 +37,48 @@ public class ProjectServiceTest {
 
     final Email email = new Email("kelyan.bervin@gmail.com");
     final TradesManId tradesManId = tradesManService.nextId();
-    final CreditCard creditCard = new CreditCard("1234567634", "BERVIN", LocalDateTime.now());
-    final Location location = new Location("Ile-de-France", "Ermont");
+    final CreditCard creditCard = CreditCard.of("1234567634", "BERVIN", LocalDateTime.now());
+    final Location location = Location.of("Ile-de-France", "Ermont");
+    final List<String> skills = List.of("Java", "TS");
+
+    final DiplomaId diplomaId1 = DiplomaId.of("1");
+    final Diploma bac = new Diploma(diplomaId1, "bac", new Date());
+
+    final DiplomaId diplomaId2 = DiplomaId.of("2");
+    final Diploma master = new Diploma(diplomaId2, "master", new Date());
+    final List<Diploma> diplomas = List.of(bac, master);
 
     final TradesMan tradesMan = TradesMan.of(tradesManId,"Kélyan", "BERVIN", email,
-            creditCard, "Dev", "Java", 0.5, location, "Bachelor");
-
+            creditCard, "Dev", skills, 0.5, location, diplomas);
 
     //Contractor
     ContractorRepository inMemoryContractorRepository = new InMemoryContractorRepository();
     ContractorService contractorService = new ContractorService(inMemoryContractorRepository, null);
     final ContractorId contractorId = contractorService.nextId();
-    final Contractor contractor = Contractor.of(contractorId,"Kélyan", "BERVIN");
 
     //Task
     final TaskId taskId = TaskId.of("1");
-    final Task task = Task.of(taskId, "Mur");
+    final Task task = Task.of(taskId, "Mur", true);
 
 
-
+    //Project
+    final ProjectId projectId = projectService.nextId();
+    final List<String> jobs = List.of("Maçon", "Chef de projet");
+    final List<String> skillsRequiered = List.of("", "Chef de projet");
+    final Double dailyTax = 1.4;
+    final Integer duration = 15;
+    final List<Task> tasks = List.of(task);
+    final List<TradesMan> tradesManList = List.of(tradesMan);
 
     @Test
     void create(){
 
-        final ProjectId projectId = projectService.nextId();
-        final List<String> jobs = List.of("Maçon", "Chef de projet");
-        final List<String> skills = List.of("", "Chef de projet");
-        final Double dailyTax = 1.4;
-        final Integer duration = 15;
-        final List<Task> tasks = List.of(task);
-        final List<TradesMan> tradesManList = List.of(tradesMan);
-
         final ProjectDTO projectDTO = new ProjectDTO("Test", jobs, skills, location,
-                dailyTax, duration, tasks, tradesManList, contractor );
+                dailyTax, duration, tasks, tradesManList, contractorId);
 
         ProjectId idProjectCreated = projectService.create(projectDTO);
-        Project project = Project.of(idProjectCreated, "Test", jobs, skills, location,
-                dailyTax, duration, tasks, tradesManList, contractor);
+        Project project = Project.of(idProjectCreated, "Test", jobs, skillsRequiered, location,
+                dailyTax, duration, tasks, tradesManList, contractorId);
 
         Project projectCreated = inMemoryProjectRepository.getById(idProjectCreated);
 
@@ -84,41 +89,33 @@ public class ProjectServiceTest {
     @Test
     void getProjectById(){
 
-        final ProjectId projectId = projectService.nextId();
-        final List<String> jobs = List.of("Maçon", "Chef de projet");
-        final List<String> skills = List.of("", "Chef de projet");
-        final Double dailyTax = 1.4;
-        final Integer duration = 15;
-        final List<Task> tasks = List.of(task);
-        final List<TradesMan> tradesManList = List.of(tradesMan);
+        final Project project = Project.of(projectId, "Villa", jobs, skillsRequiered, location,
+                                            dailyTax, duration, tasks, tradesManList, contractorId);
 
-
-        final Project project = Project.of(projectId, "Villa", jobs, skills, location,
-                                            dailyTax, duration, tasks, tradesManList, contractor);
-
-        inMemoryProjectRepository.add(project);
+        inMemoryProjectRepository.create(project);
 
         assertEquals(project, projectService.getById(projectId));
+    }
 
+    @Test
+    void getProjectByName(){
+
+        final Project project = Project.of(projectId, "Villa", jobs, skillsRequiered, location,
+                dailyTax, duration, tasks, tradesManList, contractorId);
+
+        inMemoryProjectRepository.create(project);
+
+        assertEquals(project, projectService.getByName(project.getName()));
     }
 
     @Test
     void delete(){
 
-        final ProjectId projectId = projectService.nextId();
-        final List<String> jobs = List.of("Maçon", "Chef de projet");
-        final List<String> skills = List.of("", "Chef de projet");
-        final Double dailyTax = 1.4;
-        final Integer duration = 15;
-        final List<Task> tasks = List.of(task);
-        final List<TradesMan> tradesManList = List.of(tradesMan);
+        final Project project = Project.of(projectId, "Villa", jobs, skillsRequiered, location,
+                dailyTax, duration, tasks, tradesManList, contractorId);
 
 
-        final Project project = Project.of(projectId, "Villa", jobs, skills, location,
-                dailyTax, duration, tasks, tradesManList, contractor);
-
-
-        inMemoryProjectRepository.add(project);
+        inMemoryProjectRepository.create(project);
         inMemoryProjectRepository.delete(projectId);
 
         try{
@@ -128,4 +125,41 @@ public class ProjectServiceTest {
             assert (true);
         }
     }
+
+
+    @Test
+    void addTask(){
+        final TaskId taskId = TaskId.of("1");
+        final Task task = Task.of(taskId, "Mur", true);
+        final List<Task> tasks = List.of(task);
+
+        final Project project = Project.of(projectId, "Villa", jobs, skillsRequiered, location,
+                dailyTax, duration, tasks, tradesManList, contractorId);
+
+        final TaskId taskAddedId = TaskId.of("1");
+        final Task taskAdded = Task.of(taskAddedId, "Garage", true);
+        final List<Task> newTaskList = List.of(task, taskAdded);
+
+        assertEquals(newTaskList, projectService.addTask(projectId, taskAdded));
+    }
+
+    @Test
+    void removeTask(){
+        final TaskId taskId = TaskId.of("1");
+        final Task task = Task.of(taskId, "Mur", true);
+
+        final TaskId taskId2 = TaskId.of("2");
+        final Task taskRemoved = Task.of(taskId2, "Garage", true);
+
+        final List<Task> tasks = List.of(task, taskRemoved);
+
+        final Project project = Project.of(projectId, "Villa", jobs, skillsRequiered, location,
+                dailyTax, duration, tasks, tradesManList, contractorId);
+
+
+        final List<Task> newTaskList = List.of(task);
+
+        assertEquals(newTaskList, projectService.removeTask(projectId, taskRemoved));
+    }
+
 }

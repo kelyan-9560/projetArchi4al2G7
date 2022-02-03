@@ -2,7 +2,6 @@ package cc2.use_cases.project.domain;
 
 import cc2.use_cases.contractor.domain.ContractorId;
 import cc2.use_cases.task.domain.Task;
-import cc2.use_cases.tradesman.domain.Diploma;
 import cc2.use_cases.tradesman.domain.Location;
 import cc2.use_cases.tradesman.domain.TradesMan;
 
@@ -89,10 +88,6 @@ public final class Project {
 
     public List<TradesMan> getTradesManList() {
         return tradesManList;
-    }
-
-    public ContractorId getContractor() {
-        return contractorId;
     }
 
     public ContractorId getContractorId() {

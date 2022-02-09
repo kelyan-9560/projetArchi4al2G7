@@ -1,5 +1,8 @@
 package cc2.use_cases.contractor.application;
 
+import cc2.use_cases.contractor.domain.Password;
+import cc2.use_cases.tradesman.domain.CreditCard;
+import cc2.use_cases.tradesman.domain.Email;
 import org.springframework.lang.NonNull;
 
 public class ContractorDTO {
@@ -8,9 +11,18 @@ public class ContractorDTO {
     public String firstname;
     @NonNull
     public String lastname;
+    @NonNull
+    public Password password;
+    @NonNull
+    public CreditCard creditCard;
+    @NonNull
+    public Email email;
 
-    public ContractorDTO(@NonNull String firstname, @NonNull String lastname) {
+    public ContractorDTO(@NonNull String firstname, @NonNull String lastname, @NonNull Password password, @NonNull CreditCard creditCard, @NonNull Email email) {
         this.firstname = firstname;
         this.lastname = lastname;
+        this.password = password;
+        this.creditCard = creditCard;
+        this.email = email;
     }
 }

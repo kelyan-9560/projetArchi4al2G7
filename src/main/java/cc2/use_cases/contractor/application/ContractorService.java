@@ -29,7 +29,9 @@ public class ContractorService {
 
     public ContractorId create(ContractorDTO contractorDTO){
         final ContractorId contractorId = contractorRepository.nextId();
-        final Contractor contractor = Contractor.of(contractorId, contractorDTO.firstname, contractorDTO.lastname);
+        final Contractor contractor = Contractor.of(
+                contractorId, contractorDTO.firstname, contractorDTO.lastname, contractorDTO.password,
+                contractorDTO.creditCard, contractorDTO.email);
 
         contractorRepository.add(contractor);
         return contractorId;

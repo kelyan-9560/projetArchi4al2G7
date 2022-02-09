@@ -1,5 +1,10 @@
 package Contractor;
 
+import cc2.use_cases.contractor.domain.Password;
+import cc2.use_cases.tradesman.domain.CreditCard;
+import java.time.LocalDateTime;
+
+import cc2.use_cases.tradesman.domain.Email;
 import org.junit.jupiter.api.Test;
 import cc2.use_cases.contractor.application.ContractorDTO;
 import cc2.use_cases.contractor.application.ContractorService;
@@ -22,11 +27,14 @@ public class ContractorServiceTest {
         ContractorRepository contractorRepository = new InMemoryContractorRepository();
         ContractorService contractorService = new ContractorService(contractorRepository, null);
 
-        final ContractorDTO contractorDTO = new ContractorDTO("Kélyan", "BERVIN");
+        final Password password = new Password("Azery$1234");
+        final CreditCard creditCard = new CreditCard("1111 1111 1111 1111","Kélyan Bervin",LocalDateTime.now());
+        final Email email = new Email("kbervin@myges.fr");
+        final ContractorDTO contractorDTO = new ContractorDTO("Kélyan", "BERVIN", password, creditCard, email);
 
 
         ContractorId idContractorCreated = contractorService.create(contractorDTO);
-        Contractor contractor = Contractor.of(idContractorCreated,"Kélyan", "BERVIN");
+        Contractor contractor = Contractor.of(idContractorCreated,"Kélyan", "BERVIN",password,creditCard,email);
 
         Contractor contractorCreated = contractorRepository.getById(idContractorCreated);
 
@@ -38,8 +46,11 @@ public class ContractorServiceTest {
         ContractorRepository inMemoryContractorRepository = new InMemoryContractorRepository();
         ContractorService contractorService = new ContractorService(inMemoryContractorRepository, null);
 
+        final Password password = new Password("Azery$1234");
+        final CreditCard creditCard = new CreditCard("1111 1111 1111 1111","Kélyan Bervin", LocalDateTime.now());
+        final Email email = new Email("kbervin@myges.fr");
         final ContractorId contractorId = contractorService.nextId();
-        final Contractor contractor = Contractor.of(contractorId,"Kélyan", "BERVIN");
+        final Contractor contractor = Contractor.of(contractorId,"Kélyan", "BERVIN",password,creditCard,email);
 
 
         inMemoryContractorRepository.add(contractor);
@@ -52,11 +63,14 @@ public class ContractorServiceTest {
         ContractorRepository inMemoryContractorRepository = new InMemoryContractorRepository();
         ContractorService contractorService = new ContractorService(inMemoryContractorRepository, null);
 
+        final Password password = new Password("Azery$1234");
+        final CreditCard creditCard = new CreditCard("1111 1111 1111 1111","Kélyan Bervin", LocalDateTime.now());
+        final Email email = new Email("kbervin@myges.fr");
         final ContractorId contractorId1 = new ContractorId("1");
-        final Contractor contractor1 = Contractor.of(contractorId1, "Kélyan1", "BERVIN1");
+        final Contractor contractor1 = Contractor.of(contractorId1, "Kélyan1", "BERVIN1",password,creditCard,email);
 
         final ContractorId contractorId2 = new ContractorId("2");
-        final Contractor contractor2 = Contractor.of(contractorId2,"Kélyan2", "BERVIN2");
+        final Contractor contractor2 = Contractor.of(contractorId2,"Kélyan2", "BERVIN2",password,creditCard,email);
 
         List<Contractor> contractorList = new ArrayList<>();
         contractorList.add(contractor1);
@@ -73,8 +87,11 @@ public class ContractorServiceTest {
         ContractorRepository inMemoryContractorRepository = new InMemoryContractorRepository();
         ContractorService contractorService = new ContractorService(inMemoryContractorRepository, null);
 
+        final Password password = new Password("Azery$1234");
+        final CreditCard creditCard = new CreditCard("1111 1111 1111 1111","Kélyan Bervin", LocalDateTime.now());
+        final Email email = new Email("kbervin@myges.fr");
         final ContractorId contractorId = new ContractorId("1");
-        final Contractor contractor = Contractor.of(contractorId, "Kélyan", "BERVIN");
+        final Contractor contractor = Contractor.of(contractorId, "Kélyan", "BERVIN", password, creditCard, email);
 
 
         inMemoryContractorRepository.add(contractor);

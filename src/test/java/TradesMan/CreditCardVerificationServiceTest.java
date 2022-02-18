@@ -6,6 +6,9 @@ import cc2.use_cases.tradesman.domain.exception.CreditCardException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -82,6 +85,13 @@ public class CreditCardVerificationServiceTest {
     @Test
     public void creditCardOwnerNameSameAsUserLastname(){
 
+        List skills = new ArrayList();
+        skills.add("Plomberie");
+        skills.add("Mécanique");
+
+        List diplomas = new ArrayList();
+        diplomas.add(new Diploma(new DiplomaId("0"), "Bachelor", new Date()));
+
         CreditCardVerificationService creditCardVerificationService = new CreditCardVerificationService(null);
 
         final String creditCardOwnerName = "MESSI";
@@ -92,7 +102,7 @@ public class CreditCardVerificationServiceTest {
         final CreditCard creditCard = CreditCard.of("123456789009876543", creditCardOwnerName, LocalDateTime.now());
         final Location location = Location.of("Ile-de-France", "Ermont");
         final TradesMan tradesMan = TradesMan.of(tradesManId, "Kélyan", tradesManLastname, email,
-                creditCard, "Dev", "Java", 0.1, location, "Bachelor");
+                creditCard, "Dev", skills, 0.1, location, diplomas);
 
 
         try{
@@ -107,6 +117,13 @@ public class CreditCardVerificationServiceTest {
     @Test
     public void creditCardOwnerNameDifferentAsUserLastname(){
 
+        List skills = new ArrayList();
+        skills.add("Plomberie");
+        skills.add("Mécanique");
+
+        List diplomas = new ArrayList();
+        diplomas.add(new Diploma(new DiplomaId("0"), "Bachelor", new Date()));
+
         CreditCardVerificationService creditCardVerificationService = new CreditCardVerificationService(null);
 
         final String creditCardOwnerName = "MESSI";
@@ -117,7 +134,7 @@ public class CreditCardVerificationServiceTest {
         final CreditCard creditCard = CreditCard.of("123456789009876543", creditCardOwnerName, LocalDateTime.now());
         final Location location = Location.of("Ile-de-France", "Ermont");
         final TradesMan tradesMan = TradesMan.of(tradesManId, "Kélyan", tradesManLastname, email,
-                creditCard, "Dev", "Java", 0.1, location, "Bachelor");
+                creditCard, "Dev", skills, 0.1, location, diplomas);
 
 
         try{

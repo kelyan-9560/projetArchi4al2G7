@@ -27,7 +27,7 @@ public class ContractorServiceTest {
         ContractorRepository contractorRepository = new InMemoryContractorRepository();
         ContractorService contractorService = new ContractorService(contractorRepository, null);
 
-        final Password password = new Password("Azery$1234");
+        final Password password = new Password("Azerty$1234");
         final CreditCard creditCard = new CreditCard("1111 1111 1111 1111","Kélyan Bervin",LocalDateTime.now());
         final Email email = new Email("kbervin@myges.fr");
         final ContractorDTO contractorDTO = new ContractorDTO("Kélyan", "BERVIN", password, creditCard, email);

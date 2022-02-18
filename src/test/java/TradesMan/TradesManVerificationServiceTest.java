@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 import cc2.use_cases.tradesman.application.TradesManVerificationService;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -13,6 +16,13 @@ public class TradesManVerificationServiceTest {
 
     @Test
     public void dailyTaxMoreThanZero(){
+
+        List skills = new ArrayList();
+        skills.add("Plomberie");
+        skills.add("Mécanique");
+
+        List diplomas = new ArrayList();
+        diplomas.add(new Diploma(new DiplomaId("0"), "Bachelor", new Date()));
 
         final Double dailyTax = 0.1;
 
@@ -23,7 +33,7 @@ public class TradesManVerificationServiceTest {
         final CreditCard creditCard = CreditCard.of("1234567634", "BERVIN", LocalDateTime.now());
         final Location location = Location.of("Ile-de-France", "Ermont");
         final TradesMan tradesMan = TradesMan.of(tradesManId, "Kélyan", "BERVIN", email,
-                creditCard, "Dev", "Java", dailyTax, location, "Bachelor");
+                creditCard, "Dev", skills, dailyTax, location, diplomas);
 
 
         try{
@@ -38,6 +48,13 @@ public class TradesManVerificationServiceTest {
     @Test
     public void dailyTaxLessThanZero(){
 
+        List skills = new ArrayList();
+        skills.add("Plomberie");
+        skills.add("Mécanique");
+
+        List diplomas = new ArrayList();
+        diplomas.add(new Diploma(new DiplomaId("0"), "Bachelor", new Date()));
+
         final Double dailyTax = -1.1;
 
         TradesManVerificationService tradesManVerificationService = new TradesManVerificationService(null);
@@ -47,7 +64,7 @@ public class TradesManVerificationServiceTest {
         final CreditCard creditCard = CreditCard.of("1234567634", "BERVIN", LocalDateTime.now());
         final Location location = Location.of("Ile-de-France", "Ermont");
         final TradesMan tradesMan = TradesMan.of(tradesManId, "Kélyan", "BERVIN", email,
-                creditCard, "Dev", "Java", dailyTax, location, "Bachelor");
+                creditCard, "Dev", skills, dailyTax, location, diplomas);
 
 
         try{
@@ -63,6 +80,13 @@ public class TradesManVerificationServiceTest {
     @Test
     public void dailyTaxEqualToZero(){
 
+        List skills = new ArrayList();
+        skills.add("Plomberie");
+        skills.add("Mécanique");
+
+        List diplomas = new ArrayList();
+        diplomas.add(new Diploma(new DiplomaId("0"), "Bachelor", new Date()));
+
         final Double dailyTax = 0.0;
 
         TradesManVerificationService tradesManVerificationService = new TradesManVerificationService(null);
@@ -72,7 +96,7 @@ public class TradesManVerificationServiceTest {
         final CreditCard creditCard = CreditCard.of("1234567634", "BERVIN", LocalDateTime.now());
         final Location location = Location.of("Ile-de-France", "Ermont");
         final TradesMan tradesMan = TradesMan.of(tradesManId, "Kélyan", "BERVIN", email,
-                creditCard, "Dev", "Java", dailyTax, location, "Bachelor");
+                creditCard, "Dev", skills, dailyTax, location, diplomas);
 
         try{
             tradesManVerificationService.dailyTaxVerification(tradesMan);
@@ -87,6 +111,13 @@ public class TradesManVerificationServiceTest {
     @Test
     public void mailAddressValid(){
 
+        List skills = new ArrayList();
+        skills.add("Plomberie");
+        skills.add("Mécanique");
+
+        List diplomas = new ArrayList();
+        diplomas.add(new Diploma(new DiplomaId("0"), "Bachelor", new Date()));
+
         final Email email = new Email("kelyan.bervin@gmail.com");
 
         TradesManVerificationService tradesManVerificationService = new TradesManVerificationService(null);
@@ -95,7 +126,7 @@ public class TradesManVerificationServiceTest {
         final CreditCard creditCard = CreditCard.of("1234567634", "BERVIN", LocalDateTime.now());
         final Location location = Location.of("Ile-de-France", "Ermont");
         final TradesMan tradesMan = TradesMan.of(tradesManId, "Kélyan", "BERVIN", email,
-                creditCard, "Dev", "Java", 0.1, location, "Bachelor");
+                creditCard, "Dev", skills, 0.1, location, diplomas);
 
 
         try{
@@ -110,6 +141,13 @@ public class TradesManVerificationServiceTest {
     @Test
     public void mailAddressNotValid(){
 
+        List skills = new ArrayList();
+        skills.add("Plomberie");
+        skills.add("Mécanique");
+
+        List diplomas = new ArrayList();
+        diplomas.add(new Diploma(new DiplomaId("0"), "Bachelor", new Date()));
+
         final Email email = new Email("kelyan.bervingmail.com");
 
         TradesManVerificationService tradesManVerificationService = new TradesManVerificationService(null);
@@ -118,7 +156,7 @@ public class TradesManVerificationServiceTest {
         final CreditCard creditCard = CreditCard.of("1234567634", "BERVIN", LocalDateTime.now());
         final Location location = Location.of("Ile-de-France", "Ermont");
         final TradesMan tradesMan = TradesMan.of(tradesManId, "Kélyan", "BERVIN", email,
-                creditCard, "Dev", "Java", 0.0, location, "Bachelor");
+                creditCard, "Dev", skills, 0.0, location, diplomas);
 
         try{
             tradesManVerificationService.mailAddressVerification(tradesMan);

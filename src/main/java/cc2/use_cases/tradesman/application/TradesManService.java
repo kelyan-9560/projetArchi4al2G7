@@ -34,7 +34,7 @@ public class TradesManService {
         final TradesManId tradesManId = tradesManRepository.nextId();
         final TradesMan tradesMan = TradesMan.of(tradesManId, tradesManDTO.firstname, tradesManDTO.lastname,
                                                     tradesManDTO.email,tradesManDTO.creditCard, tradesManDTO.job,
-                                                    tradesManDTO.skill, tradesManDTO.dailyTax, tradesManDTO.location,
+                                                    tradesManDTO.skills, tradesManDTO.dailyTax, tradesManDTO.location,
                                                     tradesManDTO.diplomas);
         tradesManRepository.add(tradesMan);
         eventBus.send(AddedTradesManEvent.withUser(tradesMan));

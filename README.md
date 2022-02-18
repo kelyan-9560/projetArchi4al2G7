@@ -21,7 +21,7 @@
 
 
 
-Use_state à implémenter: 3,4,5
+Use_state à implémenter: 1,3,4 et 5
 
 
 

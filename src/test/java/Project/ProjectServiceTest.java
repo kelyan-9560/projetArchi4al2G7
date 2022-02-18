@@ -1,5 +1,8 @@
 package Project;
 
+import cc2.kernel.CreditCard;
+import cc2.kernel.Email;
+import cc2.kernel.Location;
 import cc2.use_cases.contractor.application.ContractorService;
 import cc2.use_cases.contractor.domain.ContractorId;
 import cc2.use_cases.contractor.domain.ContractorRepository;

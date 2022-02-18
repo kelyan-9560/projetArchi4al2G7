@@ -1,6 +1,6 @@
 package cc2.use_cases.tradesman.application.events;
 
-import cc2.use_cases.tradesman.domain.CreditCard;
+import cc2.kernel.CreditCard;
 import cc2.use_cases.tradesman.domain.TradesMan;
 
 import java.util.Date;

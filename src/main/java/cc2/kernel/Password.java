@@ -1,4 +1,4 @@
-package cc2.use_cases.contractor.domain;
+package cc2.kernel;
 
 import java.util.Objects;
 import java.util.regex.Matcher;

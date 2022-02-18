@@ -1,7 +1,7 @@
 package cc2.use_cases.tradesman.application.events;
 
 import cc2.kernel.Subscriber;
-import cc2.use_cases.tradesman.domain.Payment;
+import cc2.kernel.Payment;
 import cc2.use_cases.tradesman.domain.SendMailToUser;
 
 

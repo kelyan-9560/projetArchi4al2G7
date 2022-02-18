@@ -1,10 +1,10 @@
 package Contractor;
 
-import cc2.use_cases.contractor.domain.Password;
-import cc2.use_cases.tradesman.domain.CreditCard;
+import cc2.kernel.Password;
+import cc2.kernel.CreditCard;
 import java.time.LocalDateTime;
 
-import cc2.use_cases.tradesman.domain.Email;
+import cc2.kernel.Email;
 import org.junit.jupiter.api.Test;
 import cc2.use_cases.contractor.application.ContractorDTO;
 import cc2.use_cases.contractor.application.ContractorService;

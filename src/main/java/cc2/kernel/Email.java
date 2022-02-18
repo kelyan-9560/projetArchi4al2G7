@@ -1,4 +1,4 @@
-package cc2.use_cases.tradesman.domain;
+package cc2.kernel;
 
 import java.util.Objects;
 

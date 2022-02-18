@@ -1,7 +1,10 @@
 package TradesMan;
 
+import cc2.kernel.CreditCard;
+import cc2.kernel.Email;
+import cc2.kernel.Location;
 import cc2.use_cases.tradesman.application.events.AddedUserEventSubscription;
-import cc2.use_cases.tradesman.domain.Payment;
+import cc2.kernel.Payment;
 import cc2.use_cases.tradesman.domain.SendMailToUser;
 import cc2.use_cases.tradesman.application.TradesManDTO;
 import cc2.use_cases.tradesman.application.TradesManService;

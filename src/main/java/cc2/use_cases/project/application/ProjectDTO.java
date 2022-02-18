@@ -2,7 +2,7 @@ package cc2.use_cases.project.application;
 
 import cc2.use_cases.contractor.domain.ContractorId;
 import cc2.use_cases.task.domain.Task;
-import cc2.use_cases.tradesman.domain.Location;
+import cc2.kernel.Location;
 import cc2.use_cases.tradesman.domain.TradesMan;
 
 import java.util.List;

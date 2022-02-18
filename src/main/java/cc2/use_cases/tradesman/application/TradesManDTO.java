@@ -1,9 +1,9 @@
 package cc2.use_cases.tradesman.application;
 
 import cc2.use_cases.tradesman.domain.Diploma;
-import cc2.use_cases.tradesman.domain.Location;
-import cc2.use_cases.tradesman.domain.CreditCard;
-import cc2.use_cases.tradesman.domain.Email;
+import cc2.kernel.Location;
+import cc2.kernel.CreditCard;
+import cc2.kernel.Email;
 import org.springframework.lang.NonNull;
 
 import java.util.List;

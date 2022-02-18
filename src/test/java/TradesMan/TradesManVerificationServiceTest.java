@@ -1,5 +1,8 @@
 package TradesMan;
 
+import cc2.kernel.CreditCard;
+import cc2.kernel.Email;
+import cc2.kernel.Location;
 import cc2.use_cases.tradesman.domain.*;
 import cc2.use_cases.tradesman.domain.exception.TradesManException;
 import org.junit.jupiter.api.Test;

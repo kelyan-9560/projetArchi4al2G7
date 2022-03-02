@@ -3,7 +3,7 @@ package cc2.kernel;
 import java.util.Objects;
 
 public final class Email {
-    private String email;
+    private final String email;
 
     public Email(String email) {
         this.email = email;

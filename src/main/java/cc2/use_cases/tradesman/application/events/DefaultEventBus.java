@@ -11,7 +11,7 @@ import java.util.Map;
 @Component
 public class DefaultEventBus<E extends Event> implements EventBus<E> {
 
-    private Map<Class<E>, List<Subscriber<E>>> subscribers;
+    private final Map<Class<E>, List<Subscriber<E>>> subscribers;
 
     public DefaultEventBus(Map<Class<E>, List<Subscriber<E>>> subscribers) {
         this.subscribers = subscribers;

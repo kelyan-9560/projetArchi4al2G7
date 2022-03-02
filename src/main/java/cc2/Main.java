@@ -1,27 +1,22 @@
 package cc2;
 
-import cc2.kernel.CreditCard;
-import cc2.kernel.Email;
-import cc2.kernel.Location;
-import cc2.use_cases.tradesman.domain.*;
-import cc2.use_cases.tradesman.application.events.AddedTradesManEvent;
-import cc2.use_cases.tradesman.application.events.DefaultEventBus;
-import cc2.use_cases.tradesman.application.events.AddedUserEventSubscription;
-import cc2.kernel.Payment;
-import cc2.use_cases.tradesman.domain.SendMailToUser;
-import cc2.use_cases.tradesman.application.AddedService;
-import cc2.use_cases.tradesman.application.CreditCardVerificationService;
-import cc2.use_cases.tradesman.application.TradesManVerificationService;
+import cc2.kernel.*;
+import cc2.use_cases.contractor.application.ContractorService;
+import cc2.use_cases.contractor.domain.ContractorRepository;
+import cc2.use_cases.contractor.exposition.ContractorController;
+import cc2.use_cases.contractor.infrastructure.InMemoryContractorRepository;
+import cc2.use_cases.tradesman.application.events.VerificationCreditCardEvent;
+import cc2.use_cases.tradesman.application.events.VerificationTradesManEvent;
+import io.vertx.core.Vertx;
+import io.vertx.ext.web.RoutingContext;
 
-import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
+        /*
         var subscriptionMap = Collections.singletonMap(AddedTradesManEvent.class,
                         Collections.singletonList(new AddedUserEventSubscription(new SendMailToUser(), new Payment())));
 
@@ -52,6 +47,48 @@ public class Main {
         userVerificationService.userVerification(tradesMan);
 
         addedService.register(tradesMan);
+         */
+
+        CommandBus commandBus = new CommandBus() {
+            @Override
+            public <C extends Command, R> R send(C command) {
+                return null;
+            }
+        };
+        QueryBus queryBus = new QueryBus() {
+            @Override
+            public <Q extends Query, R> R send(Q query) {
+                return null;
+            }
+        };
+
+        ContractorRepository contractorRepository = new InMemoryContractorRepository();
+        EventBus<Event> eventBus = new EventBus<Event>() {
+            @Override
+            public void send(Event event) {
+
+            }
+
+            @Override
+            public void registerSubscriber(Class<Event> classE, List<Subscriber<Event>> subscribers) {
+
+            }
+
+            @Override
+            public void tradesManVerificationSubscriber(VerificationTradesManEvent verificationTradesManEvent) {
+
+            }
+
+            @Override
+            public void creditCardVerificationSubscriber(VerificationCreditCardEvent verificationCreditCardEvent) {
+
+            }
+        };
+        ContractorController contractorController = new ContractorController(commandBus, queryBus, new ContractorService(contractorRepository, eventBus));
+        //RoutingContext routingContext = new RoutingContext();
+        System.out.println("App...");
+        final Vertx vertx = Vertx.vertx();
+        vertx.deployVerticle(new ApiVerticle(contractorController));
 
     }
 }

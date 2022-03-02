@@ -2,7 +2,6 @@ package TradesMan;
 
 import cc2.use_cases.tradesman.domain.*;
 import cc2.use_cases.tradesman.infrastructure.InMemoryTradesManRepository;
-import cc2.web_REST.controllers.tradesman.TradesManController;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -19,8 +18,7 @@ public class TradesManControllerTest {
     @Mock
     private InMemoryTradesManRepository tradesManRepository;
 
-    @InjectMocks
-    private TradesManController tradesManController;
+
 
     private JacksonTester<TradesMan> jacksonTester;
 

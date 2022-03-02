@@ -5,7 +5,7 @@ import cc2.kernel.Email;
 import cc2.kernel.Location;
 import cc2.use_cases.tradesman.application.CreditCardVerificationService;
 import cc2.use_cases.tradesman.domain.*;
-import cc2.use_cases.tradesman.domain.exception.CreditCardException;
+import cc2.kernel.exception.CreditCardException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

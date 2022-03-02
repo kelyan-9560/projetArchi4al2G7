@@ -76,4 +76,5 @@ public final class Contractor {
     public Email getEmail() {
         return email;
     }
+
 }

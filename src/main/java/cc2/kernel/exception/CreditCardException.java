@@ -1,12 +1,11 @@
-package cc2.use_cases.tradesman.domain.exception;
+package cc2.kernel.exception;
 
 import java.time.LocalDateTime;
 
 public final class CreditCardException extends RuntimeException {
 
 
-    public CreditCardException(int errorCode, CreditCardsExceptionsTags creditCardsExceptionsTags, String detail) {
-    }
+    public CreditCardException(int errorCode, CreditCardsExceptionsTags creditCardsExceptionsTags, String detail) {}
 
     public static CreditCardException withNumber(String creditCardNumber){
         return new CreditCardException(1, CreditCardsExceptionsTags.BAD_NUMBER, creditCardNumber + " is a bad CreditCard number");

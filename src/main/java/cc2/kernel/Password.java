@@ -1,5 +1,7 @@
 package cc2.kernel;
 
+import cc2.kernel.exception.PasswordException;
+
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -7,10 +9,10 @@ import java.util.regex.Pattern;
 public final class Password {
     private final String value;
 
-    public Password(String value) {
+    public Password(String value) throws PasswordException{
         Objects.requireNonNull(value);
         if (!isValid(value)) {
-            throw new IllegalArgumentException("A password must contain 8 to 15 characters, 1 or more capital letter, 1 or more small letter, 1 or more number and at least one of these special characters: $ @ % * + - _ !.");
+            throw PasswordException.invalidPassword();
         }
         this.value = value;
     }

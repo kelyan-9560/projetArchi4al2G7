@@ -21,4 +21,12 @@ public final class ProjectException extends RuntimeException{
     public static ProjectException noProject(){
         return new ProjectException(4, ProjectExceptionTags.NO_PROJECT, "There is no project");
     }
+
+    public static ProjectException invalidDailyRate(){
+        return new ProjectException(5, ProjectExceptionTags.INVALID_DAILY_RATE, " Invalid daily rate");
+    }
+
+    public static ProjectException invalidDuration(){
+        return new ProjectException(6, ProjectExceptionTags.INVALID_DURATION, " Invalid duration");
+    }
 }

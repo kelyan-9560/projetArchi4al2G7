@@ -1,4 +1,4 @@
-package cc2.use_cases.tradesman.domain.exception;
+package cc2.kernel.exception;
 
 public enum CreditCardsExceptionsTags {
     BAD_NUMBER,

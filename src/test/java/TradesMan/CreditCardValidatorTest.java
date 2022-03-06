@@ -3,7 +3,7 @@ package TradesMan;
 import cc2.kernel.CreditCard;
 import cc2.kernel.Email;
 import cc2.kernel.Location;
-import cc2.use_cases.tradesman.application.CreditCardVerificationService;
+import cc2.use_cases.tradesman.application.CreditCardValidator;
 import cc2.use_cases.tradesman.domain.*;
 import cc2.kernel.exception.CreditCardException;
 import org.junit.jupiter.api.Test;
@@ -15,18 +15,18 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class CreditCardVerificationServiceTest {
+public class CreditCardValidatorTest {
 
     @Test
     public void numberIsValid(){
 
         final String creditCardNumber = "123456789009876543";
 
-        CreditCardVerificationService creditCardVerificationService = new CreditCardVerificationService(null);
+        CreditCardValidator creditCardValidator = new CreditCardValidator(null);
         CreditCard creditCard = CreditCard.of(creditCardNumber, "Jean", LocalDateTime.now());
 
         try{
-            creditCardVerificationService.numberIsValid(creditCard);
+            creditCardValidator.numberIsValid(creditCard);
         } catch (CreditCardException creditCardException){
             fail("Should'nt throw exception");
             assert (false);
@@ -39,11 +39,11 @@ public class CreditCardVerificationServiceTest {
 
         final String creditCardNumber = "1234567890";
 
-        CreditCardVerificationService creditCardVerificationService = new CreditCardVerificationService(null);
+        CreditCardValidator creditCardValidator = new CreditCardValidator(null);
         CreditCard creditCard = CreditCard.of(creditCardNumber, "Jean", LocalDateTime.now());
 
         try{
-            creditCardVerificationService.numberIsValid(creditCard);
+            creditCardValidator.numberIsValid(creditCard);
             fail("Should throw exception");
         } catch (CreditCardException creditCardException){
             assert (true);
@@ -56,11 +56,11 @@ public class CreditCardVerificationServiceTest {
 
         final LocalDateTime creditCardExpirationDate = LocalDateTime.now();
 
-        CreditCardVerificationService creditCardVerificationService = new CreditCardVerificationService(null);
+        CreditCardValidator creditCardValidator = new CreditCardValidator(null);
         CreditCard creditCard = CreditCard.of("123456789009876543", "Jean", creditCardExpirationDate);
 
         try{
-            creditCardVerificationService.expirationDateIsValid(creditCard);
+            creditCardValidator.expirationDateIsValid(creditCard);
         } catch (CreditCardException creditCardException){
             fail("Should'nt throw exception");
             assert (false);
@@ -70,14 +70,14 @@ public class CreditCardVerificationServiceTest {
 
     @Test
     public void expirationDateNotValid(){
-        CreditCardVerificationService creditCardVerificationService = new CreditCardVerificationService(null);
+        CreditCardValidator creditCardValidator = new CreditCardValidator(null);
 
         final LocalDateTime creditCardExpirationDate = LocalDateTime.of(2010, 12, 15,0,0,0);
 
         CreditCard creditCard = CreditCard.of("123456789009876543", "Jean", creditCardExpirationDate);
 
         try{
-            creditCardVerificationService.expirationDateIsValid(creditCard);
+            creditCardValidator.expirationDateIsValid(creditCard);
             fail("Should throw exception");
         } catch (CreditCardException creditCardException){
             assert (true);
@@ -95,7 +95,7 @@ public class CreditCardVerificationServiceTest {
         List diplomas = new ArrayList();
         diplomas.add(new Diploma(new DiplomaId("0"), "Bachelor", new Date()));
 
-        CreditCardVerificationService creditCardVerificationService = new CreditCardVerificationService(null);
+        CreditCardValidator creditCardValidator = new CreditCardValidator(null);
 
         final String creditCardOwnerName = "MESSI";
         final String tradesManLastname = "MESSI";
@@ -109,7 +109,7 @@ public class CreditCardVerificationServiceTest {
 
 
         try{
-            creditCardVerificationService.ownerNameIsSameAsUserLastname(creditCard, tradesMan);
+            creditCardValidator.ownerNameIsSameAsUserLastname(creditCard, tradesMan);
         } catch (CreditCardException creditCardException){
             fail("Should'nt throw exception");
             assert (false);
@@ -127,7 +127,7 @@ public class CreditCardVerificationServiceTest {
         List diplomas = new ArrayList();
         diplomas.add(new Diploma(new DiplomaId("0"), "Bachelor", new Date()));
 
-        CreditCardVerificationService creditCardVerificationService = new CreditCardVerificationService(null);
+        CreditCardValidator creditCardValidator = new CreditCardValidator(null);
 
         final String creditCardOwnerName = "MESSI";
         final String tradesManLastname = "RONALDO";
@@ -141,7 +141,7 @@ public class CreditCardVerificationServiceTest {
 
 
         try{
-            creditCardVerificationService.ownerNameIsSameAsUserLastname(creditCard, tradesMan);
+            creditCardValidator.ownerNameIsSameAsUserLastname(creditCard, tradesMan);
             fail("Should throw exception");
         } catch (CreditCardException creditCardException){
             assert (true);

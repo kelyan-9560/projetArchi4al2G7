@@ -10,11 +10,11 @@ import cc2.kernel.EventBus;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class CreditCardVerificationService {
+public class CreditCardValidator {
 
     private final EventBus<Event> eventBus;
 
-    public CreditCardVerificationService(EventBus<Event> eventBus) {
+    public CreditCardValidator(EventBus<Event> eventBus) {
         this.eventBus = eventBus;
     }
 

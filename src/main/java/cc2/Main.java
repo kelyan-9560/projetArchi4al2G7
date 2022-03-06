@@ -5,25 +5,32 @@ import cc2.use_cases.contractor.application.ContractorService;
 import cc2.use_cases.contractor.domain.ContractorRepository;
 import cc2.use_cases.contractor.exposition.ContractorController;
 import cc2.use_cases.contractor.infrastructure.InMemoryContractorRepository;
-import cc2.use_cases.tradesman.application.events.VerificationCreditCardEvent;
-import cc2.use_cases.tradesman.application.events.VerificationTradesManEvent;
+import cc2.use_cases.tradesman.application.AddedService;
+import cc2.use_cases.tradesman.application.CreditCardValidator;
+import cc2.use_cases.tradesman.application.TradesManVerificationService;
+import cc2.use_cases.tradesman.application.events.AddedTradesManEvent;
+import cc2.use_cases.tradesman.application.events.AddedUserEventSubscription;
+import cc2.use_cases.tradesman.application.events.DefaultEventBus;
+import cc2.use_cases.tradesman.domain.*;
 import io.vertx.core.Vertx;
-import io.vertx.ext.web.RoutingContext;
 
+import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        /*
+
         var subscriptionMap = Collections.singletonMap(AddedTradesManEvent.class,
                         Collections.singletonList(new AddedUserEventSubscription(new SendMailToUser(), new Payment())));
 
         var eventBus = new DefaultEventBus(subscriptionMap);
 
 
-        CreditCardVerificationService creditCardVerificationService = new CreditCardVerificationService(eventBus);
+        CreditCardValidator creditCardValidator = new CreditCardValidator(eventBus);
         TradesManVerificationService userVerificationService = new TradesManVerificationService(eventBus);
         AddedService addedService = new AddedService(eventBus);
 
@@ -41,51 +48,22 @@ public class Main {
         TradesMan tradesMan = TradesMan.of(tradesManId,"Kélyan ", "BERVIN", email,
                 creditCard, "Macon", skills, 2.3, location, diplomas);
 
-        creditCardVerificationService.creditCardVerification(creditCard, tradesMan);
+        creditCardValidator.creditCardVerification(creditCard, tradesMan);
 
 
         userVerificationService.userVerification(tradesMan);
 
         addedService.register(tradesMan);
-         */
 
-        CommandBus commandBus = new CommandBus() {
-            @Override
-            public <C extends Command, R> R send(C command) {
-                return null;
-            }
-        };
-        QueryBus queryBus = new QueryBus() {
-            @Override
-            public <Q extends Query, R> R send(Q query) {
-                return null;
-            }
-        };
 
+        CommandBus commandBus = new SimpleCommandBus();
+        QueryBus queryBus = new SimpleQueryBus();
         ContractorRepository contractorRepository = new InMemoryContractorRepository();
-        EventBus<Event> eventBus = new EventBus<Event>() {
-            @Override
-            public void send(Event event) {
+        EventBus<Event> eventBus1 = new SimpleEventBus<>();
 
-            }
+        ContractorController contractorController = new ContractorController(commandBus, queryBus, new ContractorService(contractorRepository, eventBus1), creditCardValidator);
 
-            @Override
-            public void registerSubscriber(Class<Event> classE, List<Subscriber<Event>> subscribers) {
 
-            }
-
-            @Override
-            public void tradesManVerificationSubscriber(VerificationTradesManEvent verificationTradesManEvent) {
-
-            }
-
-            @Override
-            public void creditCardVerificationSubscriber(VerificationCreditCardEvent verificationCreditCardEvent) {
-
-            }
-        };
-        ContractorController contractorController = new ContractorController(commandBus, queryBus, new ContractorService(contractorRepository, eventBus));
-        //RoutingContext routingContext = new RoutingContext();
         System.out.println("App...");
         final Vertx vertx = Vertx.vertx();
         vertx.deployVerticle(new ApiVerticle(contractorController));

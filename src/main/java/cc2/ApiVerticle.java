@@ -7,10 +7,9 @@ import io.vertx.ext.web.Router;
 public class ApiVerticle extends AbstractVerticle {
 
     private final ContractorController contractorController;
-    public ApiVerticle(ContractorController contractorController ) {
+
+    public ApiVerticle(ContractorController contractorController) {
         this.contractorController = contractorController;
-
-
     }
 
     @Override
@@ -19,14 +18,14 @@ public class ApiVerticle extends AbstractVerticle {
 
         Router router = Router.router(vertx);
         final Router contractorSubRouter = contractorController.getSubRouter(vertx);
-        router.mountSubRouter("/api/v1/contractor", contractorSubRouter);
 
+        router.mountSubRouter("/api/v1/contractor", contractorSubRouter);
 
         vertx.createHttpServer()
                 .requestHandler(router)
                 .listen(3000);
     }
-    
+
     @Override
     public void stop() throws Exception {
         //LOGGER.info("Dans le stop...");

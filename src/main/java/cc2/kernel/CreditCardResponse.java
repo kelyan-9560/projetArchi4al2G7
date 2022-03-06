@@ -1,4 +1,4 @@
-package cc2.kernel.exposition;
+package cc2.kernel;
 
 import java.time.LocalDateTime;
 

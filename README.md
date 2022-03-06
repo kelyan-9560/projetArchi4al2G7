@@ -9,7 +9,7 @@
 - les tests
 
 
-Use_state à implémenter: 1,3,4 et 5
+Use_case à implémenter: 1,3,4 et 5
 
 
 

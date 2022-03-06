@@ -113,10 +113,11 @@ public class ContractorController {
                     .putHeader("content-type", "application/json")
                     .end(Json.encode(errorJsonResponse));
         }
+
         routingContext.response()
                 .setStatusCode(200)
                 .putHeader("content-type", "application/json")
-                .end(Json.encode(contractor));
+                .end(Json.encode(contractor.toString()));
 
 
     }

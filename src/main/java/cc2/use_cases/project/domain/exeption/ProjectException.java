@@ -18,8 +18,8 @@ public final class ProjectException extends RuntimeException{
         return new ProjectException(3, ProjectExceptionTags.FAILED_DELETION, "Error in deleting project");
     }
 
-    public static ProjectException noProject(){
-        return new ProjectException(4, ProjectExceptionTags.NO_PROJECT, "There is no project");
+    public static void noProject(){
+        System.out.println("Error : 4, Project." + ProjectExceptionTags.NO_PROJECT + ".There is no project");
     }
 
     public static ProjectException invalidDailyRate(){

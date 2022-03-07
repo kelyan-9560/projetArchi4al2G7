@@ -26,16 +26,14 @@ public class InMemoryTradesManRepository implements TradesManRepository {
     @Override
     public TradesMan getById(TradesManId tradesManId) {
         final TradesMan tradesMan = data.get(tradesManId);
-        if (tradesMan == null) {
-            throw TradesManException.tradesManNotFound();
-        }
+        if (tradesMan == null) return null;
         return tradesMan;
     }
 
     @Override
     public List<TradesMan> getAll() {
         if(data.isEmpty()){
-            throw TradesManException.noTradesMan();
+            TradesManException.noTradesMan();
         }
         return List.copyOf(data.values());
     }

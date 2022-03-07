@@ -30,16 +30,14 @@ public class InMemoryContractorRepository implements ContractorRepository {
     @Override
     public Contractor getById(ContractorId contractorId) {
         final Contractor contractor = data.get(contractorId);
-        if (contractor == null) {
-            throw ContractorException.contractorNotFound();
-        }
+        if (contractor == null) return null;
         return contractor;
     }
 
     @Override
     public List<Contractor> getAll() {
         if(data.isEmpty()){
-            throw ContractorException.noContractor();
+            ContractorException.noContractor();
         }
         return List.copyOf(data.values());
     }
@@ -49,7 +47,7 @@ public class InMemoryContractorRepository implements ContractorRepository {
         try {
             data.remove(contractorId);
         } catch (Exception e) {
-            throw ContractorException.failedDeletion();
+            ContractorException.failedDeletion();
         }
     }
 }

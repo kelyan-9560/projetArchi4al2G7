@@ -49,7 +49,7 @@ public class InMemoryProjectRepository implements ProjectRepository {
     @Override
     public List<Project> getAll() {
         if(data.isEmpty()){
-            throw ProjectException.noProject();
+            ProjectException.noProject();
         }
         return List.copyOf(data.values());
     }

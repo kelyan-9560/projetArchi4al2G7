@@ -151,12 +151,11 @@ public class TradesManServiceTest {
         inMemoryTradesManRepository.add(tradesMan);
         inMemoryTradesManRepository.delete(tradesManId);
 
-        try{
-            tradesManService.getById(tradesManId);
-            fail("Should throw exception");
-        } catch (TradesManException tradesManException){
+        if(tradesManService.getById(tradesManId) == null)
             assert (true);
-        }
+        else
+            fail("Should be null");
+
 
     }
 }

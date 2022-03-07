@@ -97,12 +97,13 @@ public class ContractorServiceTest {
         inMemoryContractorRepository.add(contractor);
         inMemoryContractorRepository.delete(contractorId);
 
-        try{
-            contractorService.getById(contractorId);
-            fail("Should throw exception");
-        } catch (ContractorException contractorException){
+
+        if(contractorService.getById(contractorId) == null)
             assert (true);
-        }
+        else
+            fail("Should be null");
+
+
     }
 
 }

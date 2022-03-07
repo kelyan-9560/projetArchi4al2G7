@@ -49,8 +49,6 @@ public class ContractorController {
         return subRouter;
     }
 
-    // TODO : Vérifier les champs (service de vérification etc...)
-
 
     private void createContractor(final RoutingContext routingContext) {
         System.out.println("Dans le create...");
@@ -75,7 +73,6 @@ public class ContractorController {
         final Email email = Email.of(emailParam);
         final ContractorDTO contractorDTO = new ContractorDTO(firstname, lastname, password, creditCard, email);
 
-        //creditCardValidator.creditCardVerification(creditCard, );
 
         final ContractorId contractorId = contractorService.create(contractorDTO);
 
@@ -85,7 +82,7 @@ public class ContractorController {
         final JsonObject jsonResponse = new JsonObject();
         jsonResponse.put("contractor", contractorId);
         routingContext.response()
-                .setStatusCode(200)
+                .setStatusCode(201)
                 .putHeader("content-type", "application/json")
                 .end(Json.encode(jsonResponse));
 
@@ -126,6 +123,16 @@ public class ContractorController {
 
         final List<Contractor> contractorList = contractorService.getAll();
         queryBus.send(new RetrieveContractors());
+
+        if(contractorList.isEmpty()){
+            final JsonObject errorJsonResponse = new JsonObject();
+            errorJsonResponse.put("error", "No contractor found");
+
+            routingContext.response()
+                    .setStatusCode(404)
+                    .putHeader("content-type", "application/json")
+                    .end(Json.encode(errorJsonResponse));
+        }
 
         ContractorsResponse contractorsResponse = new ContractorsResponse(
                 contractorList
@@ -168,7 +175,6 @@ public class ContractorController {
         if (contractor == null) {
             final JsonObject errorJsonResponse = new JsonObject();
             errorJsonResponse.put("error", "No contractor can be found for the specified id:" + idPram);
-            errorJsonResponse.put("id", idPram);
 
             routingContext.response()
                     .setStatusCode(404)
@@ -183,7 +189,7 @@ public class ContractorController {
         jsonResponse.put("Ok", "Contractor has been successfully deleted");
 
         routingContext.response()
-                .setStatusCode(200)
+                .setStatusCode(204)
                 .putHeader("content-type", "application/json")
                 .end(Json.encode(jsonResponse));
     }

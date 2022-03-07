@@ -95,16 +95,19 @@ public class TradesManController {
         final TradesManDTO tradesManDTO = new TradesManDTO(firstname, lastname, email, creditCard, job, skills,
                                                             dailyTax, location, diplomas);
 
+
+
         final TradesManId tradesManId = tradesManService.create(tradesManDTO);
 
 
         final CreateTradesMan createTradesMan = new CreateTradesMan(firstname, lastname, email, creditCard, job, skills,
                                                                     dailyTax, location, diplomas);
+
         commandBus.send(createTradesMan);
 
         jsonResponse.put("TradesMan", tradesManId);
         routingContext.response()
-                .setStatusCode(200)
+                .setStatusCode(201)
                 .putHeader("content-type", "application/json")
                 .end(Json.encode(jsonResponse));
     }
@@ -144,6 +147,18 @@ public class TradesManController {
 
         final List<TradesMan> tradesManList = tradesManService.getAll();
         queryBus.send(new RetrieveTradesMans());
+
+
+        if(tradesManList.isEmpty()){
+            final JsonObject errorJsonResponse = new JsonObject();
+            errorJsonResponse.put("error", "No TradesMan");
+
+            routingContext.response()
+                    .setStatusCode(404)
+                    .putHeader("content-type", "application/json")
+                    .end(Json.encode(errorJsonResponse));
+        }
+
 
         TradesMansResponse tradesMansResponse = new TradesMansResponse(
                 tradesManList
@@ -186,7 +201,6 @@ public class TradesManController {
         if (tradesMan == null) {
             final JsonObject errorJsonResponse = new JsonObject();
             errorJsonResponse.put("error", "No TradesMan can be found for the specified id : " + idPram);
-            errorJsonResponse.put("id", idPram);
 
             routingContext.response()
                     .setStatusCode(404)
@@ -201,7 +215,7 @@ public class TradesManController {
         jsonResponse.put("Ok", "TradesMan has been successfully deleted");
 
         routingContext.response()
-                .setStatusCode(200)
+                .setStatusCode(204)
                 .putHeader("content-type", "application/json")
                 .end(Json.encode(jsonResponse));
     }

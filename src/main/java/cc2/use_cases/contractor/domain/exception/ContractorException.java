@@ -26,7 +26,7 @@ public final class ContractorException extends RuntimeException {
         return new ContractorException(4, ContractorExceptionTags.FAILED_DELETION, "Error in deleting contractor");
     }
 
-    public static ContractorException noContractor(){
-        return new ContractorException(5, ContractorExceptionTags.NO_CONTRACTOR, "There is no contractor");
+    public static void noContractor(){
+        System.out.println("Error : 5, Contractor. " + ContractorExceptionTags.NO_CONTRACTOR + ". There is no contractor");
     }
 }

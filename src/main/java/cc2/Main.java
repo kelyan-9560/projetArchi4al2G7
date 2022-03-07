@@ -7,11 +7,14 @@ import cc2.use_cases.contractor.exposition.ContractorController;
 import cc2.use_cases.contractor.infrastructure.InMemoryContractorRepository;
 import cc2.use_cases.tradesman.application.AddedService;
 import cc2.use_cases.tradesman.application.CreditCardValidator;
+import cc2.use_cases.tradesman.application.TradesManService;
 import cc2.use_cases.tradesman.application.TradesManVerificationService;
 import cc2.use_cases.tradesman.application.events.AddedTradesManEvent;
 import cc2.use_cases.tradesman.application.events.AddedUserEventSubscription;
 import cc2.use_cases.tradesman.application.events.DefaultEventBus;
 import cc2.use_cases.tradesman.domain.*;
+import cc2.use_cases.tradesman.exposition.TradesManController;
+import cc2.use_cases.tradesman.infrastructure.InMemoryTradesManRepository;
 import io.vertx.core.Vertx;
 
 import java.time.LocalDateTime;
@@ -60,13 +63,15 @@ public class Main {
         QueryBus queryBus = new SimpleQueryBus();
         ContractorRepository contractorRepository = new InMemoryContractorRepository();
         EventBus<Event> eventBus1 = new SimpleEventBus<>();
+        TradesManRepository tradesManRepository = new InMemoryTradesManRepository();
 
         ContractorController contractorController = new ContractorController(commandBus, queryBus, new ContractorService(contractorRepository, eventBus1), creditCardValidator);
+        TradesManController tradesManController = new TradesManController(commandBus, queryBus, new TradesManService(tradesManRepository, eventBus1));
 
 
         System.out.println("App...");
         final Vertx vertx = Vertx.vertx();
-        vertx.deployVerticle(new ApiVerticle(contractorController));
+        vertx.deployVerticle(new ApiVerticle(contractorController, tradesManController));
 
     }
 }

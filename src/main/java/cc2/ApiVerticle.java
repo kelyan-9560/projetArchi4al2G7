@@ -1,15 +1,18 @@
 package cc2;
 
 import cc2.use_cases.contractor.exposition.ContractorController;
+import cc2.use_cases.tradesman.exposition.TradesManController;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.ext.web.Router;
 
 public class ApiVerticle extends AbstractVerticle {
 
     private final ContractorController contractorController;
+    private final TradesManController tradesManController;
 
-    public ApiVerticle(ContractorController contractorController) {
+    public ApiVerticle(ContractorController contractorController, TradesManController tradesManController) {
         this.contractorController = contractorController;
+        this.tradesManController = tradesManController;
     }
 
     @Override
@@ -18,8 +21,10 @@ public class ApiVerticle extends AbstractVerticle {
 
         Router router = Router.router(vertx);
         final Router contractorSubRouter = contractorController.getSubRouter(vertx);
+        final Router tradesManSubRouter = tradesManController.getSubRouter(vertx);
 
         router.mountSubRouter("/api/v1/contractor", contractorSubRouter);
+        router.mountSubRouter("/api/v1/tradesman", tradesManSubRouter);
 
         vertx.createHttpServer()
                 .requestHandler(router)
@@ -28,7 +33,6 @@ public class ApiVerticle extends AbstractVerticle {
 
     @Override
     public void stop() throws Exception {
-        //LOGGER.info("Dans le stop...");
         System.out.println("Dans le stop...");
     }
 }

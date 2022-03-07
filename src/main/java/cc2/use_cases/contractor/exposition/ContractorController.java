@@ -14,9 +14,7 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
-import org.springframework.http.ResponseEntity;
 
-import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -147,7 +145,6 @@ public class ContractorController {
                 .putHeader("content-type", "application/json")
                 .end(Json.encode(jsonResponse));
 
-
     }
 
     private void deleteContractorById(RoutingContext routingContext) {
@@ -183,10 +180,12 @@ public class ContractorController {
         contractorService.delete(contractorId);
 
         final JsonObject jsonResponse = new JsonObject();
+        jsonResponse.put("Ok", "Contractor has been successfully deleted");
+
         routingContext.response()
                 .setStatusCode(200)
                 .putHeader("content-type", "application/json")
-                .end(Json.encode(jsonResponse), "Contractor Deleted");
+                .end(Json.encode(jsonResponse));
     }
 
 }

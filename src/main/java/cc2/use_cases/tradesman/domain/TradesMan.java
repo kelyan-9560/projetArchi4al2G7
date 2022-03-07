@@ -109,4 +109,8 @@ public final class TradesMan {
     public Location getLocation() {
         return location;
     }
+
+    public List<Diploma> getDiplomas() {
+        return diplomas;
+    }
 }

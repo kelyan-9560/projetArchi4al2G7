@@ -1,4 +1,4 @@
-package cc2.kernel.exposition;
+package cc2.kernel;
 
 public class EmailRequest {
 

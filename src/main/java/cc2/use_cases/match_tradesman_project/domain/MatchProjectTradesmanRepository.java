@@ -3,6 +3,7 @@ package cc2.use_cases.match_tradesman_project.domain;
 import cc2.use_cases.project.domain.Project;
 import cc2.use_cases.project.domain.ProjectId;
 import cc2.use_cases.task.domain.Task;
+import cc2.use_cases.tradesman.domain.TradesMan;
 
 import java.util.List;
 import java.util.UUID;
@@ -22,4 +23,5 @@ public interface MatchProjectTradesmanRepository {
         return MatchProjectTradesmanId.fromUUID(UUID.randomUUID());
     }
 
+    TradesMan getBestFitTradesMan(MatchProjectTradesman matchProjectTradesman);
 }

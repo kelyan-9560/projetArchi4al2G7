@@ -1,13 +1,9 @@
 package cc2.use_cases.match_tradesman_project.application;
 
-import cc2.kernel.exposition.MatchProjectTradesmanRequest;
+import cc2.kernel.MatchProjectTradesmanRequest;
 import cc2.use_cases.match_tradesman_project.domain.MatchProjectTradesman;
 import cc2.use_cases.match_tradesman_project.domain.MatchProjectTradesmanId;
 import cc2.use_cases.match_tradesman_project.domain.MatchProjectTradesmanRepository;
-import cc2.use_cases.project.application.ProjectDTO;
-import cc2.use_cases.project.domain.Project;
-import cc2.use_cases.project.domain.ProjectId;
-import cc2.use_cases.tradesman.domain.TradesMan;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -25,7 +21,7 @@ public class MatchProjectTradesmanService {
 
         final MatchProjectTradesmanId matchProjectTradesmanId = matchProjectTradesmanRepository.nextId();
         final MatchProjectTradesman matchProjectTradesman = MatchProjectTradesman.of(matchProjectTradesmanId, matchProjectTradesmanRequest.project, matchProjectTradesmanRequest.tradesManList);
-
+        matchProjectTradesman.assignBestFitTradesMan();
         matchProjectTradesmanRepository.create(matchProjectTradesman);
         return matchProjectTradesmanId;
     }

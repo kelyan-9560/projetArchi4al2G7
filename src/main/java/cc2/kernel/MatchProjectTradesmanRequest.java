@@ -1,4 +1,4 @@
-package cc2.kernel.exposition;
+package cc2.kernel;
 
 import cc2.use_cases.project.domain.Project;
 import cc2.use_cases.tradesman.domain.TradesMan;
@@ -14,8 +14,12 @@ public final class MatchProjectTradesmanRequest {
     @NonNull
     public List<TradesMan> tradesManList;
 
-    public MatchProjectTradesmanRequest(@NonNull Project project, @NonNull List<TradesMan> tradesManList) {
+    @NonNull
+    public TradesMan bestFitTradesMan;
+
+    public MatchProjectTradesmanRequest(@NonNull Project project, @NonNull List<TradesMan> tradesManList, TradesMan bestFitTradesMan) {
         this.project = project;
         this.tradesManList = tradesManList;
+        this.bestFitTradesMan = bestFitTradesMan;
     }
 }

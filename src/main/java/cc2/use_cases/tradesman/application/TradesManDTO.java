@@ -8,7 +8,7 @@ import org.springframework.lang.NonNull;
 
 import java.util.List;
 
-public class TradesManDTO {
+public final class TradesManDTO {
 
     @NonNull
     public String firstname;
